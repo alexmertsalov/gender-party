@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="uk">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<title>Gender Party · Алекс & Наталі</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&family=Jost:wght@300;400;500&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --blush:   #F2D8D8;
+    --sky:     #C9DCED;
+    --lilac:   #E2D5E8;
+    --sage:    #D4E4D8;
+    --cream:   #FDF8F4;
+    --warm:    #F7F0EA;
+    --text:    #4A3F3A;
+    --muted:   #9A8C88;
+    --accent:  #C28FAB;
+    --boy:     #8BB8D4;
+    --girl:    #D4839B;
+    --border:  #EAE0DC;
+  }
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    background: var(--cream);
+    color: var(--text);
+    font-family: 'Jost', sans-serif;
+    font-weight: 300;
+    line-height: 1.7;
+    overflow-x: hidden;
+  }
+
+  /* ── HERO ──────────────────────────────────────── */
+  .hero {
+    min-height: 100svh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    padding: 60px 24px 80px;
+    background: linear-gradient(160deg, #fde8e8 0%, #f9edf6 40%, #daeaf5 100%);
+    position: relative;
+    overflow: hidden;
+  }
+
+  .hero::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(ellipse 60% 40% at 20% 30%, rgba(242,216,216,.45) 0%, transparent 70%),
+      radial-gradient(ellipse 50% 50% at 80% 70%, rgba(201,220,237,.45) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  .petals {
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    overflow: hidden;
+  }
+
+  .petal {
+    position: absolute;
+    border-radius: 50% 0 50% 0;
+    opacity: .18;
+    animation: drift linear infinite;
+  }
+
+  @keyframes drift {
+    0%   { transform: translateY(-40px) rotate(0deg);   opacity: .18; }
+    100% { transform: translateY(110vh) rotate(360deg); opacity: 0; }
+  }
+
+  .logo-badge {
+    width: 110px; height: 110px;
+    border-radius: 50%;
+    background: white;
+    display: flex; align-items: center; justify-content: center;
+    font-size: 48px;
+    box-shadow: 0 8px 32px rgba(180,130,160,.18);
+    margin-bottom: 32px;
+    position: relative; z-index: 1;
+    animation: float 4s ease-in-out infinite;
+  }
+
+  @keyframes float {
+    0%,100% { transform: translateY(0); }
+    50%     { transform: translateY(-10px); }
+  }
+
+  .scroll-hint {
+    position: absolute;
+    bottom: 28px;
+    left: 50%;
+    transform: translateX(-50%);
+    display: flex; flex-direction: column; align-items: center; gap: 6px;
+    color: var(--muted); font-size: 11px; letter-spacing: .12em; text-transform: uppercase;
+    animation: bounce 2s ease-in-out infinite;
+  }
+
+  @keyframes bounce {
+    0%,100% { transform: translateX(-50%) translateY(0); }
+    50%     { transform: translateX(-50%) translateY(6px); }
+  }
+
+  .scroll-hint svg { opacity: .5; }
+
+  .eyebrow {
+    font-family: 'Jost', sans-serif;
+    font-size: 11px; font-weight: 400;
+    letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 18px;
+    position: relative; z-index: 1;
+  }
+
+  .hero h1 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(52px, 12vw, 96px);
+    font-weight: 300; line-height: 1.05;
+    color: var(--text);
+    position: relative; z-index: 1;
+    margin-bottom: 10px;
+  }
+
+  .hero h1 em { font-style: italic; color: var(--accent); }
+
+  .hero-sub {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(20px, 4vw, 26px);
+    font-weight: 300; font-style: italic;
+    color: var(--muted); margin-bottom: 36px;
+    position: relative; z-index: 1;
+  }
+
+  .divider-leaf {
+    display: flex; align-items: center; gap: 14px;
+    color: var(--accent); font-size: 18px;
+    margin-bottom: 36px;
+    position: relative; z-index: 1;
+  }
+
+  .divider-leaf::before,
+  .divider-leaf::after {
+    content: '';
+    width: 60px; height: 1px;
+    background: linear-gradient(to right, transparent, var(--accent));
+  }
+
+  .divider-leaf::after { transform: scaleX(-1); }
+
+  .hero-info {
+    display: flex; gap: 36px; flex-wrap: wrap; justify-content: center;
+    position: relative; z-index: 1;
+    margin-bottom: 10px;
+  }
+
+  .hero-info-item {
+    display: flex; flex-direction: column; align-items: center; gap: 4px;
+  }
+
+  .hero-info-item .label {
+    font-size: 10px; letter-spacing: .18em; text-transform: uppercase; color: var(--muted);
+  }
+
+  .hero-info-item .value {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400; color: var(--text);
+  }
+
+  /* ── SECTIONS ──────────────────────────────────── */
+  section { padding: 80px 24px; }
+
+  .section-inner {
+    max-width: 680px; margin: 0 auto; text-align: center;
+  }
+
+  .section-tag {
+    font-size: 10px; letter-spacing: .22em; text-transform: uppercase;
+    color: var(--accent); margin-bottom: 16px; display: block;
+  }
+
+  h2 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: clamp(34px, 7vw, 52px);
+    font-weight: 300; line-height: 1.15;
+    margin-bottom: 20px;
+  }
+
+  h2 em { font-style: italic; color: var(--accent); }
+
+  p { color: var(--muted); font-size: 15px; line-height: 1.8; }
+
+  /* ── CALENDAR ──────────────────────────────────── */
+  .calendar-wrap {
+    margin: 40px auto 0;
+    max-width: 320px;
+    background: white;
+    border-radius: 20px;
+    box-shadow: 0 8px 40px rgba(180,130,160,.12);
+    overflow: hidden;
+  }
+
+  .cal-header {
+    background: linear-gradient(135deg, var(--blush), var(--lilac));
+    padding: 18px 24px;
+    display: flex; align-items: center; justify-content: center;
+    gap: 10px;
+  }
+
+  .cal-header span {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 22px; font-weight: 400; color: var(--text);
+    letter-spacing: .05em;
+  }
+
+  .cal-grid {
+    display: grid; grid-template-columns: repeat(7,1fr);
+    padding: 16px;
+    gap: 4px;
+  }
+
+  .cal-day-label {
+    text-align: center; font-size: 10px; letter-spacing: .1em;
+    text-transform: uppercase; color: var(--muted);
+    padding: 4px 0;
+  }
+
+  .cal-day {
+    text-align: center; padding: 8px 4px;
+    font-size: 14px; color: var(--text);
+    border-radius: 10px;
+  }
+
+  .cal-day.empty { opacity: 0; }
+
+  .cal-day.other { color: var(--muted); opacity: .4; }
+
+  .cal-day.highlight {
+    background: linear-gradient(135deg, var(--blush), var(--lilac));
+    font-weight: 500;
+    position: relative;
+  }
+
+  .cal-day.highlight::after {
+    content: '✦';
+    position: absolute; bottom: -2px; right: 2px;
+    font-size: 8px; color: var(--accent);
+  }
+
+  .cal-footer {
+    padding: 12px 16px 20px;
+    text-align: center;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 18px; font-style: italic; color: var(--accent);
+  }
+
+  /* ── INVITE CARD ──────────────────────────────── */
+  .invite-bg {
+    background: linear-gradient(160deg, #fde8e8 0%, var(--cream) 60%);
+  }
+
+  .invite-card {
+    max-width: 500px; margin: 40px auto 0;
+    background: white;
+    border-radius: 24px;
+    padding: 48px 40px;
+    box-shadow: 0 12px 48px rgba(180,130,160,.1);
+    border: 1px solid var(--border);
+  }
+
+  .invite-card .big-name {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 42px; font-weight: 300; font-style: italic;
+    color: var(--accent); display: block; margin-bottom: 16px;
+  }
+
+  /* ── TIMELINE ──────────────────────────────────── */
+  .timeline-bg {
+    background: linear-gradient(160deg, var(--cream) 0%, #e8f3fa 100%);
+  }
+
+  .timeline {
+    margin-top: 48px;
+    display: flex; flex-direction: column; gap: 0;
+    max-width: 520px; margin-left: auto; margin-right: auto;
+    position: relative;
+  }
+
+  .timeline::before {
+    content: '';
+    position: absolute;
+    left: 72px; top: 0; bottom: 0;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, var(--border) 10%, var(--border) 90%, transparent);
+  }
+
+  .tl-item {
+    display: flex; gap: 0; align-items: flex-start;
+    padding: 22px 0;
+  }
+
+  .tl-time {
+    min-width: 72px;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 17px; font-weight: 400; color: var(--accent);
+    padding-right: 20px; text-align: right; padding-top: 4px;
+    flex-shrink: 0;
+  }
+
+  .tl-dot {
+    width: 10px; height: 10px;
+    border-radius: 50%;
+    background: var(--blush);
+    border: 2px solid var(--accent);
+    flex-shrink: 0;
+    margin-top: 7px;
+    position: relative; z-index: 1;
+  }
+
+  .tl-dot.special {
+    background: var(--accent);
+    width: 14px; height: 14px;
+    margin-top: 5px;
+    box-shadow: 0 0 0 4px rgba(194,143,171,.2);
+  }
+
+  .tl-body {
+    padding-left: 20px; padding-top: 1px;
+  }
+
+  .tl-body strong {
+    display: block;
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 20px; font-weight: 400; color: var(--text);
+    line-height: 1.2; margin-bottom: 2px;
+  }
+
+  .tl-body span {
+    font-size: 13px; color: var(--muted);
+  }
+
+  /* ── DRESSCODE ─────────────────────────────────── */
+  .dress-bg {
+    background: linear-gradient(160deg, #f5edf9 0%, var(--cream) 100%);
+  }
+
+  .palette-row {
+    display: flex; gap: 12px; justify-content: center;
+    margin: 36px auto 20px; flex-wrap: wrap;
+  }
+
+  .swatch {
+    width: 52px; height: 52px; border-radius: 50%;
+    box-shadow: 0 4px 12px rgba(0,0,0,.08);
+  }
+
+  .swatch-label {
+    font-size: 11px; color: var(--muted); margin-top: 6px; text-align: center;
+  }
+
+  .swatch-wrap { display: flex; flex-direction: column; align-items: center; }
+
+  .dress-note {
+    max-width: 440px; margin: 0 auto;
+    background: white; border-radius: 16px;
+    padding: 28px 32px;
+    border: 1px solid var(--border);
+    font-size: 14px; color: var(--muted); line-height: 1.8;
+    text-align: center;
+  }
+
+  /* ── GIFT ──────────────────────────────────────── */
+  .gift-bg {
+    background: linear-gradient(160deg, var(--cream) 0%, #fde8e8 100%);
+  }
+
+  /* ── VOTE ──────────────────────────────────────── */
+  .vote-bg {
+    background: linear-gradient(135deg, #e8f4fd 0%, #fde8f2 100%);
+  }
+
+  .vote-cards {
+    display: flex; gap: 20px; justify-content: center;
+    margin-top: 44px; flex-wrap: wrap;
+  }
+
+  .vote-card {
+    flex: 1; min-width: 200px; max-width: 240px;
+    background: white; border-radius: 24px;
+    padding: 36px 24px 32px;
+    box-shadow: 0 8px 32px rgba(0,0,0,.06);
+    border: 1px solid var(--border);
+    display: flex; flex-direction: column; align-items: center; gap: 14px;
+    text-decoration: none; color: inherit;
+    transition: transform .25s, box-shadow .25s;
+  }
+
+  .vote-card:hover { transform: translateY(-6px); box-shadow: 0 16px 48px rgba(0,0,0,.1); }
+
+  .vote-icon { font-size: 40px; }
+
+  .vote-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 26px; font-weight: 400;
+  }
+
+  .vote-card.boy { border-top: 4px solid var(--boy); }
+  .vote-card.girl { border-top: 4px solid var(--girl); }
+  .vote-card.boy h3 { color: var(--boy); }
+  .vote-card.girl h3 { color: var(--girl); }
+
+  .btn-vote {
+    display: inline-block;
+    padding: 12px 28px;
+    border-radius: 40px;
+    font-family: 'Jost', sans-serif;
+    font-size: 13px; font-weight: 400; letter-spacing: .1em; text-transform: uppercase;
+    text-decoration: none;
+    transition: opacity .2s, transform .2s;
+  }
+
+  .btn-vote:hover { opacity: .85; transform: scale(1.03); }
+
+  .vote-card.boy .btn-vote {
+    background: var(--boy); color: white;
+  }
+
+  .vote-card.girl .btn-vote {
+    background: var(--girl); color: white;
+  }
+
+  /* ── LOCATION ──────────────────────────────────── */
+  .location-bg {
+    background: linear-gradient(160deg, var(--cream) 0%, #daeaf5 100%);
+  }
+
+  .location-card {
+    max-width: 480px; margin: 40px auto 0;
+    background: white; border-radius: 24px;
+    padding: 40px 36px;
+    box-shadow: 0 8px 40px rgba(139,184,212,.15);
+    border: 1px solid var(--border);
+    text-align: center;
+  }
+
+  .location-icon { font-size: 36px; margin-bottom: 16px; }
+
+  .location-card h3 {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 30px; font-weight: 300; color: var(--text);
+    margin-bottom: 6px;
+  }
+
+  .location-card .address {
+    font-size: 14px; color: var(--muted); margin-bottom: 28px;
+  }
+
+  .btn-map {
+    display: inline-flex; align-items: center; gap: 8px;
+    padding: 14px 32px; border-radius: 40px;
+    background: linear-gradient(135deg, var(--sky), var(--lilac));
+    color: var(--text); text-decoration: none;
+    font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+    font-weight: 400;
+    transition: opacity .2s, transform .2s;
+    box-shadow: 0 4px 16px rgba(139,184,212,.3);
+  }
+
+  .btn-map:hover { opacity: .88; transform: scale(1.03); }
+
+  /* ── GIFT LINK ─────────────────────────────────── */
+  .btn-gift {
+    display: inline-flex; align-items: center; gap: 8px;
+    margin-top: 28px;
+    padding: 14px 32px; border-radius: 40px;
+    background: linear-gradient(135deg, var(--blush), var(--lilac));
+    color: var(--text); text-decoration: none;
+    font-size: 13px; letter-spacing: .1em; text-transform: uppercase;
+    font-weight: 400;
+    transition: opacity .2s, transform .2s;
+    box-shadow: 0 4px 16px rgba(194,143,171,.2);
+  }
+
+  .btn-gift:hover { opacity: .88; transform: scale(1.03); }
+
+  /* ── FOOTER ────────────────────────────────────── */
+  footer {
+    padding: 48px 24px;
+    text-align: center;
+    background: linear-gradient(160deg, #fde8e8, #e8f3fa);
+  }
+
+  footer .footer-names {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 36px; font-style: italic; color: var(--accent);
+    margin-bottom: 10px;
+  }
+
+  footer p { font-size: 12px; color: var(--muted); letter-spacing: .1em; }
+
+  /* ── REVEAL ANIMATION ─────────────────────────── */
+  .reveal {
+    opacity: 0; transform: translateY(28px);
+    transition: opacity .7s ease, transform .7s ease;
+  }
+
+  .reveal.visible { opacity: 1; transform: none; }
+
+  /* ── MOBILE ────────────────────────────────────── */
+  @media (max-width: 480px) {
+    .invite-card { padding: 36px 24px; }
+    .timeline::before { left: 64px; }
+    .tl-time { min-width: 64px; font-size: 15px; }
+    .vote-cards { gap: 16px; }
+    .vote-card { min-width: 160px; }
+    section { padding: 60px 20px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *, *::before, *::after { animation: none !important; transition: none !important; }
+  }
+</style>
+</head>
+<body>
+
+<!-- PETALS -->
+<div class="petals" aria-hidden="true" id="petals"></div>
+
+<!-- ── HERO ── -->
+<section class="hero" id="top">
+  <div class="logo-badge" aria-label="Хлопчик чи дівчинка?">🎀</div>
+  <p class="eyebrow">запрошення</p>
+  <h1>Алекс<br><em>&amp;</em> Наталі</h1>
+  <p class="hero-sub">чекають на вас на своєму</p>
+  <div class="divider-leaf">✦</div>
+  <h2 style="font-size:clamp(22px,5vw,34px);margin-bottom:32px;">Gender Party</h2>
+
+  <div class="hero-info">
+    <div class="hero-info-item">
+      <span class="label">дата</span>
+      <span class="value">17 червня 2025</span>
+    </div>
+    <div class="hero-info-item">
+      <span class="label">час</span>
+      <span class="value">17:00</span>
+    </div>
+    <div class="hero-info-item">
+      <span class="label">місце</span>
+      <span class="value">ВДНГ · Strichka</span>
+    </div>
+  </div>
+
+  <div class="scroll-hint">
+    <span>гортати</span>
+    <svg width="16" height="16" viewBox="0 0 16 16" fill="none">
+      <path d="M8 3v10M4 9l4 4 4-4" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+</section>
+
+<!-- ── INVITE ── -->
+<section class="invite-bg reveal" id="invite">
+  <div class="section-inner">
+    <span class="section-tag">♡ ви запрошені</span>
+    <h2>Дорогі гості</h2>
+    <p>З радістю запрошуємо вас розділити з нами один із найтепліших і найзворушливіших моментів нашого життя — дізнатись разом, <em style="font-style:italic;color:var(--accent)">хто ж прийде до нас у цей світ</em>. Будемо раді бачити вас поруч!</p>
+
+    <div class="invite-card">
+      <span class="big-name">Алекс & Наталі</span>
+      <p>запрошують вас на свій</p>
+      <h2 style="margin:12px 0 0;font-size:38px;">Gender <em>Party</em></h2>
+    </div>
+
+    <!-- CALENDAR -->
+    <div class="calendar-wrap" style="margin-top:36px;">
+      <div class="cal-header">
+        <span>Червень · 2025</span>
+      </div>
+      <div class="cal-grid">
+        <div class="cal-day-label">Пн</div>
+        <div class="cal-day-label">Вт</div>
+        <div class="cal-day-label">Ср</div>
+        <div class="cal-day-label">Чт</div>
+        <div class="cal-day-label">Пт</div>
+        <div class="cal-day-label">Сб</div>
+        <div class="cal-day-label">Нд</div>
+        <!-- June 2025: starts Monday -->
+        <div class="cal-day">2</div>
+        <div class="cal-day">3</div>
+        <div class="cal-day">4</div>
+        <div class="cal-day">5</div>
+        <div class="cal-day">6</div>
+        <div class="cal-day">7</div>
+        <div class="cal-day">8</div>
+        <div class="cal-day">9</div>
+        <div class="cal-day">10</div>
+        <div class="cal-day">11</div>
+        <div class="cal-day">12</div>
+        <div class="cal-day">13</div>
+        <div class="cal-day">14</div>
+        <div class="cal-day">15</div>
+        <div class="cal-day">16</div>
+        <div class="cal-day highlight">17</div>
+        <div class="cal-day">18</div>
+        <div class="cal-day">19</div>
+        <div class="cal-day">20</div>
+        <div class="cal-day">21</div>
+        <div class="cal-day">22</div>
+        <div class="cal-day">23</div>
+        <div class="cal-day">24</div>
+        <div class="cal-day">25</div>
+        <div class="cal-day">26</div>
+        <div class="cal-day">27</div>
+        <div class="cal-day">28</div>
+        <div class="cal-day">29</div>
+        <div class="cal-day">30</div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+        <div class="cal-day empty"></div>
+      </div>
+      <div class="cal-footer">17 червня · 17:00</div>
+    </div>
+  </div>
+</section>
+
+<!-- ── TIMELINE ── -->
+<section class="timeline-bg reveal">
+  <div class="section-inner">
+    <span class="section-tag">✦ програма дня</span>
+    <h2>Як пройде <em>вечір</em></h2>
+    <p>Ми підготували для вас теплий і незабутній вечір, сповнений радості, сміху та очікування</p>
+
+    <div class="timeline">
+      <div class="tl-item">
+        <div class="tl-time">17:00</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <strong>Збір гостей</strong>
+          <span>Зустрічаємо вас, знайомимось і починаємо святкування</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">17:45</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <strong>Міні інтерактив</strong>
+          <span>Цікаві активності та ігри для всіх гостей</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">18:20</div>
+        <div class="tl-dot special"></div>
+        <div class="tl-body">
+          <strong>Найголовніший момент ✨</strong>
+          <span>Дізнаємось стать дитини та робимо спільне фото на пам'ять</span>
+        </div>
+      </div>
+
+      <div class="tl-item">
+        <div class="tl-time">18:40</div>
+        <div class="tl-dot"></div>
+        <div class="tl-body">
+          <strong>Продовжуємо святкування</strong>
+          <span>Танці, спілкування та вечір у колі найрідніших людей</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ── DRESSCODE ── -->
+<section class="dress-bg reveal">
+  <div class="section-inner">
+    <span class="section-tag">🌿 дрес-код</span>
+    <h2>Легкий <em>образ</em></h2>
+    <p>Оскільки будемо майже на природі, просимо одягтись зручно і легко — щоб всім було комфортно і свіжо</p>
+
+    <div class="palette-row">
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#F2D8D8;"></div>
+        <div class="swatch-label">рожевий</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#C9DCED;"></div>
+        <div class="swatch-label">блакитний</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#E2D5E8;"></div>
+        <div class="swatch-label">бузковий</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#D4E4D8;"></div>
+        <div class="swatch-label">шавлія</div>
+      </div>
+      <div class="swatch-wrap">
+        <div class="swatch" style="background:#F7F0EA;"></div>
+        <div class="swatch-label">кремовий</div>
+      </div>
+    </div>
+
+    <div class="dress-note">
+      Пастельні та ніжні відтінки будуть ідеальним доповненням до загальної атмосфери свята 🌸<br>
+      <br>
+      Уникайте яскравих і темних кольорів — нехай настрій буде таким самим легким, як і ваш образ
+    </div>
+  </div>
+</section>
+
+<!-- ── GIFT ── -->
+<section class="gift-bg reveal">
+  <div class="section-inner">
+    <span class="section-tag">🎁 подарунки</span>
+    <h2>Найкращий <em>подарунок</em></h2>
+    <p>Найприємнішим і найпрактичнішим подарунком для нас будуть гроші — вони допоможуть підготуватися до найважливішого 💛</p>
+    <p style="margin-top:16px;">Але якщо вам хочеться подарувати щось особливе та матеріальне — ми підготували вішліст спеціально для вас:</p>
+
+    <a href="https://rewish.io/9oACAA/wishes?access_code=~ywUceKVsAmGZF" target="_blank" class="btn-gift">
+      🎀 Наш вішліст на Rewish
+    </a>
+  </div>
+</section>
+
+<!-- ── VOTE ── -->
+<section class="vote-bg reveal">
+  <div class="section-inner">
+    <span class="section-tag">💭 голосування</span>
+    <h2>Ваша <em>ставка</em></h2>
+    <p>Хто ж прийде до нас? Зробіть свою ставку — підтримайте команду хлопчика або команду дівчинки!</p>
+
+    <div class="vote-cards">
+      <a class="vote-card boy" href="https://send.monobank.ua/jar/AF7BFz1M6g" target="_blank">
+        <div class="vote-icon">🩵</div>
+        <h3>Хлопчик</h3>
+        <p style="font-size:13px;text-align:center;margin:0;">Ставлю на<br>команду синіх</p>
+        <span class="btn-vote">Зробити ставку</span>
+      </a>
+      <a class="vote-card girl" href="https://send.monobank.ua/jar/ABsmNSNLcd" target="_blank">
+        <div class="vote-icon">🩷</div>
+        <h3>Дівчинка</h3>
+        <p style="font-size:13px;text-align:center;margin:0;">Ставлю на<br>команду рожевих</p>
+        <span class="btn-vote">Зробити ставку</span>
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── LOCATION ── -->
+<section class="location-bg reveal" id="location">
+  <div class="section-inner">
+    <span class="section-tag">📍 локація</span>
+    <h2>Де нас <em>знайти</em></h2>
+    <p>Чекаємо на вас у затишному ресторані Strichka на ВДНГ у Києві</p>
+
+    <div class="location-card">
+      <div class="location-icon">🌿</div>
+      <h3>Ресторан Strichka</h3>
+      <p class="address">Київ · ВДНГ · проспект Академіка Глушкова, 1</p>
+      <a href="https://maps.app.goo.gl/VcKZUB6YZyXBuFDc7" target="_blank" class="btn-map">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M12 22s-8-4.5-8-11.8A8 8 0 0 1 12 2a8 8 0 0 1 8 8.2c0 7.3-8 11.8-8 11.8z"/>
+          <circle cx="12" cy="10" r="3"/>
+        </svg>
+        Прокласти маршрут
+      </a>
+    </div>
+  </div>
+</section>
+
+<!-- ── FOOTER ── -->
+<footer>
+  <div class="footer-names">Алекс & Наталі</div>
+  <p>чекаємо на вас · 17 червня · 17:00</p>
+  <p style="margin-top:8px;font-size:11px;opacity:.6;">Gender Party · Ресторан Strichka · ВДНГ · Київ</p>
+</footer>
+
+<script>
+  // Petals
+  const petals = document.getElementById('petals');
+  const colors = ['#F2D8D8','#C9DCED','#E2D5E8','#D4E4D8','#fde8f2'];
+  for (let i = 0; i < 18; i++) {
+    const p = document.createElement('div');
+    p.className = 'petal';
+    const size = 10 + Math.random() * 22;
+    p.style.cssText = `
+      width:${size}px; height:${size}px;
+      left:${Math.random()*100}%;
+      top:${Math.random()*100}%;
+      background:${colors[Math.floor(Math.random()*colors.length)]};
+      animation-duration:${8+Math.random()*12}s;
+      animation-delay:${-Math.random()*10}s;
+      border-radius:${50+Math.random()*50}% ${Math.random()*50}% ${50+Math.random()*50}% ${Math.random()*50}%;
+    `;
+    petals.appendChild(p);
+  }
+
+  // Reveal on scroll
+  const reveals = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); } });
+  }, { threshold: 0.12 });
+  reveals.forEach(r => io.observe(r));
+</script>
+</body>
+</html>
